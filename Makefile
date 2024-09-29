@@ -1,5 +1,6 @@
 WORKDIR = $(shell pwd)
 
+.PHONY: backend
 
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
@@ -10,6 +11,9 @@ migrate-db:  ## run db-migrations
 
 seed:  ## run db-seed
 	$(MAKE) -C database seed
+
+backend: ## run backend service
+	$(MAKE) -C backend start
 
 define PRINT_HELP_PYSCRIPT
 import re, sys

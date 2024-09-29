@@ -7,6 +7,6 @@ CREATE TABLE commitment
     investor_id     integer references investor    not null,
     currency_symbol text references currency       not null,
     class_id        integer references asset_class not null,
-    amount          money                          not null
+    amount          bigint                         not null
 )
 --rollback drop table commitment

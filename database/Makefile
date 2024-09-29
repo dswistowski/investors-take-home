@@ -27,7 +27,7 @@ migrate-db:  ## run db-migrations
 	$(if $(shell command -v liquibase  2>/dev/null),,$(error Please install liquibase with 'brew install liquibase' or use docker compose: 'make migrate-db-docker))
 	liquibase --search-path=. --changelog-file changelog.yml --username investors --password=password --url jdbc:postgresql://localhost:5432/investors update
 
-seed:
+seed:  ## load example data to the database
 	DB_URL=$(DB_URL) SEED_FILE=$(SEED_FILE) poetry run python -m seed
 
 define PRINT_HELP_PYSCRIPT

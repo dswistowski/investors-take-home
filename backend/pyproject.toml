@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = ""
+authors = ["Damian Świstowski <damian@swistowski.org>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.0"
+psycopg = {extras = ["binary"], version = "^3.2.2"}
+uvicorn = {extras = ["standard"], version = "^0.31.0"}
+
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+mypy = "^1.11.2"
+ruff = "^0.6.8"
+httpx = "^0.27.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff.lint]
+select = ["E", "F", "UP", "I", "N", "YTT", "ASYNC", "B", "DTZ", "PIE", "T", "PYI", "PT", "Q", "SLF", "RET", "SIM", "TCH", "TD", "FIX", "PL", "RUF", "W"]
+preview = true
+
+[tool.ruff.lint.isort]
+known-first-party = ["backend"]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query"]
+
+
+[[tool.mypy.overrides]]
+module = "testcontainers.*"
+ignore_missing_imports = true
+

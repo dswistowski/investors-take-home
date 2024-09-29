@@ -29,7 +29,7 @@ services:
   db-seed:
     build:
       context: database
-    environment:
+    environment: &environment
       DB_URL: postgresql://investors:password@db/investors
       SEED_FILE: /database/seed.csv
     volumes:
@@ -37,6 +37,19 @@ services:
     depends_on:
       db-migration:
         condition: service_completed_successfully
+  backend:
+    build:
+      context: backend
+    ports:
+      - "8080:8080"
+    environment:
+      <<: *environment
+    depends_on:
+      db-seed:
+        condition: service_completed_successfully
+    healthcheck:
+      test:  ["CMD", "curl", "-f", "http://backend:8080/health/"]
+
 volumes:
   investors-db-data:
     name: investors-db-data
