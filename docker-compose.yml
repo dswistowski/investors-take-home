@@ -1,0 +1,42 @@
+services:
+  db:
+    ports:
+      - "5432:5432"
+    image: postgres:17
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: investors
+      POSTGRES_DB: investors
+    volumes:
+      - investors-db-data:/var/lib/postgresql/data
+    restart: always
+
+    healthcheck:
+      test: pg_isready -U investors -d investors
+      interval: 2s
+      timeout: 3s
+      retries: 40
+
+  db-migration:
+    image: liquibase/liquibase:4.29.2
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./database:/liquibase/changelog/
+    command:
+      --search-path=/liquibase/changelog/ --changelog-file changelog.yml --username investors --password=password --url jdbc:postgresql://db:5432/investors update
+  db-seed:
+    build:
+      context: database
+    environment:
+      DB_URL: postgresql://investors:password@db/investors
+      SEED_FILE: /database/seed.csv
+    volumes:
+      - ./database:/database/
+    depends_on:
+      db-migration:
+        condition: service_completed_successfully
+volumes:
+  investors-db-data:
+    name: investors-db-data

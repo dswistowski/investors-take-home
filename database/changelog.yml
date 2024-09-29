@@ -1,0 +1,19 @@
+databaseChangeLog:
+- include:
+    file: ./changelog/001-create-table-investory-type.sql
+    relativeToChangelogFile: true
+- include:
+    file: ./changelog/002-create-table-country.sql
+    relativeToChangelogFile: true
+- include:
+    file: ./changelog/003-create-table-investor.sql
+    relativeToChangelogFile: true
+- include:
+    file: ./changelog/004-create-table-asset-class.sql
+    relativeToChangelogFile: true
+- include:
+    file: ./changelog/005-create-table-currency.sql
+    relativeToChangelogFile: true
+- include:
+    file: ./changelog/006-create-table-commitment.sql
+    relativeToChangelogFile: true
