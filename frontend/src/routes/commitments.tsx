@@ -121,7 +121,7 @@ function CommitmentsTable({
 						<TableCell className="font-medium">{commitment.id}</TableCell>
 						<TableCell>{commitment.assetClass}</TableCell>
 						<TableCell>{commitment.currency}</TableCell>
-						<TableCell className="text-right font-medium text-primary underline underline-offset-4">
+						<TableCell className="text-right">
 							{formatBigInt(commitment.amount)}
 						</TableCell>
 					</TableRow>
