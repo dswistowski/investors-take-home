@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/root";
 import Investors from "./routes/investors";
+import Commitments from "./routes/commitments.tsx";
 
 import "./index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
 			{
 				path: "/",
 				element: <Investors />,
+			},
+			{
+				path: "/:investorId/",
+				element: <Commitments />,
 			},
 		],
 	},

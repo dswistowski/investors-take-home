@@ -1,9 +1,11 @@
 # Starting project
 
-To start project localy run:
+To start project locally run:
 ```bash
 docker compose up
 ```
+
+and open browser on  http://localhost:3000
 
 # Starting project long version
 
@@ -61,3 +63,11 @@ There is make command:
 make start-dev
 ```
 
+
+## Starting frontend
+
+Go to frontend directory and run:
+```bash
+pnpm install
+pnpm run dev
+```

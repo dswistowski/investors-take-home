@@ -27,10 +27,10 @@ install-dev-deps:  ## install development dependencies
 
 
 start: ## start FastApi server
-	DB_URL=$(DB_URL) poetry run python -m uvicorn backend.app:app --host=0.0.0.0 --workers=1
+	DB_URL=$(DB_URL) poetry run python -m uvicorn backend.app:app --host=0.0.0.0 --port 8080 --workers=1
 
 start-dev: ## start FastApi server
-	DB_URL=$(DB_URL) poetry run python -m uvicorn backend.app:app --host=0.0.0.0 --reload
+	DB_URL=$(DB_URL) poetry run python -m uvicorn backend.app:app --host=0.0.0.0 --port 8080 --reload
 
 
 define PRINT_HELP_PYSCRIPT

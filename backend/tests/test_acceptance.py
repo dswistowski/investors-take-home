@@ -31,3 +31,21 @@ def test_can_paginate_investors(client: TestClient):
 
     assert first_page["data"] != second_page["data"]
     assert len(first_page["data"]) == len(second_page["data"]) == 2  # noqa: PLR2004
+
+
+def test_can_fetch_asset_clases(client: TestClient):
+    response_investor_3 = client.get("/investors/3/asset-classes/")
+    assert response_investor_3.status_code == HTTPStatus.OK
+
+    response_investor_2 = client.get("/investors/2/asset-classes/")
+    assert response_investor_2.status_code == HTTPStatus.OK
+
+    assert response_investor_2.json() != response_investor_3.json()
+
+
+def test_can_filter_commitment_by_asset_classs(client: TestClient):
+    response = client.get("/investors/3/commitment/?asset_class_id=1")
+    assert response.status_code == HTTPStatus.OK
+
+    all_asset_classes = {row["asset_class"] for row in response.json()["data"]}
+    assert len(all_asset_classes) == 1

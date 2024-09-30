@@ -10,13 +10,8 @@ import {
 } from "@/components/ui/table";
 import { useQuery } from "@tanstack/react-query";
 import { investors } from "@/api.ts";
-
-function formatBigInt(number: number): string {
-	if (number > 1_000_000_000) {
-		return `${(number / 1_000_000_000).toFixed(1)}B`;
-	}
-	return `${number}`;
-}
+import { Link } from "react-router-dom";
+import { formatBigInt } from "@/numbers.ts";
 
 function InvestorsTable() {
 	const {
@@ -27,10 +22,7 @@ function InvestorsTable() {
 		queryKey: ["investors"],
 		queryFn: investors,
 	});
-	if (isPending) {
-		return <>Loading...</>;
-	}
-
+	if (isPending) return <>Loading...</>;
 	if (error) return `An error has occurred: ${error.message}`;
 	const total = paginatedResponse.data.reduce(
 		(acc, cur) => acc + cur.totalCommitment,
@@ -57,8 +49,10 @@ function InvestorsTable() {
 						<TableCell>{investor.type}</TableCell>
 						<TableCell>{investor.dateAdded.toDateString()}</TableCell>
 						<TableCell>{investor.address}</TableCell>
-						<TableCell className="text-right">
-							{formatBigInt(investor.totalCommitment)}
+						<TableCell className="text-right font-medium text-primary underline underline-offset-4">
+							<Link to={`/${investor.id}`}>
+								{formatBigInt(investor.totalCommitment)}
+							</Link>
 						</TableCell>
 					</TableRow>
 				))}
