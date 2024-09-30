@@ -47,8 +47,17 @@ services:
     depends_on:
       db-seed:
         condition: service_completed_successfully
-    healthcheck:
-      test:  ["CMD", "curl", "-f", "http://backend:8080/health/"]
+
+  frontend:
+    build:
+      context: frontend
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_BACKEND_API_URL: http://localhost:8080
+    depends_on:
+      backend:
+        condition: service_started
 
 volumes:
   investors-db-data:

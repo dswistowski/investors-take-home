@@ -6,8 +6,18 @@ from . import dependencies as dep
 from . import domain as d
 from . import response as r
 from .investors_store import InvestorsStore
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 DEFAULT_PAGINATION_LIMIT = 1_000
 
 
